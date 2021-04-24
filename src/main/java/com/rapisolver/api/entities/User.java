@@ -30,10 +30,7 @@ public class User {
     @Column(length = 9, nullable = false)
     private String phone;
 
-    @Column(length = 8, nullable = false, unique = true)
-    private String dni;
-
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date birthdate;
 
