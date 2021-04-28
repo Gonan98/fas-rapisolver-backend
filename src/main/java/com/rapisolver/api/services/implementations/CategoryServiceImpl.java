@@ -39,12 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDTO> findAll() throws RapisolverException {
-        List<Category> categories;
         try {
-            categories = categoryRepository.findAll();
+            List<Category> categories = categoryRepository.findAll();
+            return categories.stream().map(c -> MODEL_MAPPER.map(c, CategoryDTO.class)).collect(Collectors.toList());
         } catch (Exception e) {
             throw new InternalServerErrorException("Error al obtener todas las categorias");
         }
-        return categories.stream().map(c -> MODEL_MAPPER.map(c, CategoryDTO.class)).collect(Collectors.toList());
     }
 }

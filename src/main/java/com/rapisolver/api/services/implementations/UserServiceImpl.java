@@ -53,14 +53,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> findAll() throws RapisolverException {
-        List<User> users;
         try {
-            users = userRepository.findAll();
+            List<User> users = userRepository.findAll();
+            return users.stream().map(u -> MODEL_MAPPER.map(u, UserDTO.class)).collect(Collectors.toList());
         } catch (Exception e) {
             throw new InternalServerErrorException("Error al obtener todos los usuarios");
         }
-
-        return users.stream().map(u -> MODEL_MAPPER.map(u, UserDTO.class)).collect(Collectors.toList());
     }
 
     @Override
