@@ -6,6 +6,7 @@ import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,27 +19,16 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public RapisolverResponse<CategoryDTO> create(@RequestBody @Valid CreateCategoryDTO createCategoryDTO) {
-        CategoryDTO categoryDTO;
-        try {
-            categoryDTO = categoryService.create(createCategoryDTO);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-        return new RapisolverResponse<>(201, "CREATED","Categoria creada correctamente", categoryDTO);
+    public RapisolverResponse<CategoryDTO> create(@RequestBody @Valid CreateCategoryDTO createCategoryDTO) throws RapisolverException {
+        return new RapisolverResponse<>(201, "CREATED","Categoria creada correctamente", categoryService.create(createCategoryDTO));
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public RapisolverResponse<List<CategoryDTO>> getAll() {
-        List<CategoryDTO> categoryDTOS;
-        try {
-            categoryDTOS = categoryService.findAll();
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
-        return new RapisolverResponse<>(201, "OK","Lista de categorias", categoryDTOS);
+    public RapisolverResponse<List<CategoryDTO>> getAll() throws RapisolverException {
+        return new RapisolverResponse<>(201, "OK","Lista de categorias", categoryService.findAll());
     }
 
 }

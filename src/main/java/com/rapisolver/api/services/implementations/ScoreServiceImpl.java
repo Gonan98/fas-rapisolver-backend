@@ -4,6 +4,7 @@ import com.rapisolver.api.dtos.CreateScoreDTO;
 import com.rapisolver.api.dtos.ScoreDTO;
 import com.rapisolver.api.entities.Score;
 import com.rapisolver.api.entities.User;
+import com.rapisolver.api.exceptions.BadRequestException;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
@@ -34,7 +35,7 @@ public class ScoreServiceImpl implements ScoreService {
         User destination = userRepository.findById(createScoreDTO.getUserReceiverId()).orElseThrow(() -> new NotFoundException("Usuario destino no encontrado"));
 
         if (!destination.getRole().getName().equals("Proveedor"))
-            throw new RapisolverException(400, "BAD_REQUEST", "El usuario destino no es un proveedor");
+            throw new BadRequestException("El usuario destino no es un proveedor");
 
         Score score = new Score();
         score.setMark(createScoreDTO.getMark());

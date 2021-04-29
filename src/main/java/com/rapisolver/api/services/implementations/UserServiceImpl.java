@@ -4,6 +4,7 @@ import com.rapisolver.api.dtos.CreateUserDTO;
 import com.rapisolver.api.dtos.UserDTO;
 import com.rapisolver.api.entities.Role;
 import com.rapisolver.api.entities.User;
+import com.rapisolver.api.exceptions.BadRequestException;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService {
     public UserDTO create(CreateUserDTO createUserDTO) throws RapisolverException {
 
         Role roleDB = roleRepository.findByName("Cliente").orElseThrow(() -> new NotFoundException("No se encontro el rol Cliente"));
+
+        if(userRepository.findByEmail(createUserDTO.getEmail()).isPresent())
+            throw new BadRequestException("Ya existe un usuario con ese email");
 
         User user = new User();
         user.setFirstname(createUserDTO.getFirstname());

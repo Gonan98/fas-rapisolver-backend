@@ -21,39 +21,19 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    private RapisolverResponse<UserDTO> create(@RequestBody @Valid CreateUserDTO createUserDTO) {
-        UserDTO userDTO;
-        try {
-            userDTO = userService.create(createUserDTO);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-        return new RapisolverResponse<>(201, "CREATED","Usuario creado correctamente", userDTO);
+    private RapisolverResponse<UserDTO> create(@RequestBody @Valid CreateUserDTO createUserDTO) throws RapisolverException {
+        return new RapisolverResponse<>(201, "CREATED","Usuario creado correctamente", userService.create(createUserDTO));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    private RapisolverResponse<List<UserDTO>> getAll() {
-        List<UserDTO> userDTOS;
-        try {
-            userDTOS = userService.findAll();
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
-        return new RapisolverResponse<>(200, "OK","Lista de usuarios", userDTOS);
+    private RapisolverResponse<List<UserDTO>> getAll() throws RapisolverException {
+        return new RapisolverResponse<>(200, "OK","Lista de usuarios", userService.findAll());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    private RapisolverResponse<UserDTO> getById(@PathVariable Long id) {
-        UserDTO userDTO;
-        try {
-            userDTO = userService.findById(id);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
-        return new RapisolverResponse<>(200, "OK","Usuario encontrado", userDTO);
+    private RapisolverResponse<UserDTO> getById(@PathVariable Long id) throws RapisolverException {
+        return new RapisolverResponse<>(200, "OK","Usuario encontrado", userService.findById(id));
     }
 }

@@ -6,6 +6,7 @@ import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,50 +19,28 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    private RapisolverResponse<RoleDTO> create(@RequestBody @Valid CreateRoleDTO createRoleDTO) {
-        RoleDTO roleDTO;
-        try {
-            roleDTO = roleService.create(createRoleDTO);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
-        return new RapisolverResponse<>(201, "CREATED","Rol creado correctamente", roleDTO);
+    private RapisolverResponse<RoleDTO> create(@RequestBody @Valid CreateRoleDTO createRoleDTO) throws RapisolverException {
+        return new RapisolverResponse<>(201, "CREATED","Rol creado correctamente", roleService.create(createRoleDTO));
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    private RapisolverResponse<List<RoleDTO>> getAll() {
-        List<RoleDTO> roleDTOS;
-        try {
-            roleDTOS = roleService.findAll();
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
-        return new RapisolverResponse<>(200, "OK","Lista de roles", roleDTOS);
+    private RapisolverResponse<List<RoleDTO>> getAll() throws RapisolverException {
+        return new RapisolverResponse<>(200, "OK","Lista de roles", roleService.findAll());
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    private RapisolverResponse<RoleDTO> updateById(@PathVariable Long id, @RequestBody @Valid CreateRoleDTO createRoleDTO) {
-        RoleDTO roleDTO;
-        try {
-            roleDTO = roleService.update(id, createRoleDTO);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
-        return new RapisolverResponse<>(200, "OK","Rol actualizado correctamente", roleDTO);
+    private RapisolverResponse<RoleDTO> updateById(@PathVariable Long id, @RequestBody @Valid CreateRoleDTO createRoleDTO) throws RapisolverException {
+        return new RapisolverResponse<>(200, "OK","Rol actualizado correctamente", roleService.update(id, createRoleDTO));
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    private RapisolverResponse<RoleDTO> deleteById(@PathVariable Long id) {
-        try {
-            roleService.deleteById(id);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-
+    private RapisolverResponse<RoleDTO> deleteById(@PathVariable Long id) throws RapisolverException {
+        roleService.deleteById(id);
         return new RapisolverResponse<>(200, "OK","Rol eliminado correctamente");
     }
 
