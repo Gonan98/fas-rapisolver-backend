@@ -27,4 +27,7 @@ public class UserAttention {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
     private List<Reservation> reservations;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
+    private List<Score> scores;
 }

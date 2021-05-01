@@ -22,13 +22,19 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public RapisolverResponse<CategoryDTO> create(@RequestBody @Valid CreateCategoryDTO createCategoryDTO) throws RapisolverException {
-        return new RapisolverResponse<>(201, "CREATED","Categoria creada correctamente", categoryService.create(createCategoryDTO));
+        return new RapisolverResponse<>(201,
+                "CREATED",
+                "Categoria creada correctamente",
+                categoryService.create(createCategoryDTO));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public RapisolverResponse<List<CategoryDTO>> getAll() throws RapisolverException {
-        return new RapisolverResponse<>(201, "OK","Lista de categorias", categoryService.findAll());
+        return new RapisolverResponse<>(201,
+                "OK",
+                "Lista de categorias",
+                categoryService.findAll());
     }
 
 }

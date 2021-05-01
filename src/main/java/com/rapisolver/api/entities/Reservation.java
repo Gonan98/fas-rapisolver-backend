@@ -17,6 +17,9 @@ public class Reservation {
     @Column(nullable = false)
     private Date datetime;
 
+    @Column(length = 70, nullable = false)
+    private String address;
+
     @Column(nullable = false)
     private Integer status;
 

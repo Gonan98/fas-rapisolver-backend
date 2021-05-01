@@ -11,6 +11,7 @@ import com.rapisolver.api.services.RoleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Transactional
     @Override
     public RoleDTO create(CreateRoleDTO createRoleDTO) throws RapisolverException {
         Role role = new Role();
@@ -48,6 +50,7 @@ public class RoleServiceImpl implements RoleService {
         return roles.stream().map(role -> MODEL_MAPPER.map(role, RoleDTO.class)).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public RoleDTO update(Long id, CreateRoleDTO createRoleDTO) throws RapisolverException {
 
@@ -65,6 +68,7 @@ public class RoleServiceImpl implements RoleService {
         return MODEL_MAPPER.map(roleDB, RoleDTO.class);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) throws RapisolverException {
         roleRepository.findById(id).orElseThrow(() -> new NotFoundException("Rol a eliminar no encontrado"));

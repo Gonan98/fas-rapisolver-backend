@@ -9,6 +9,4 @@ import java.util.List;
 public interface ScoreService {
     ScoreDTO create(CreateScoreDTO createScoreDTO) throws RapisolverException;
     List<ScoreDTO> findAll() throws RapisolverException;
-    List<ScoreDTO> findByUserSource(Long userSourceId) throws RapisolverException;
-    List<ScoreDTO> findByUserDestination(Long userDestinationId) throws RapisolverException;
 }

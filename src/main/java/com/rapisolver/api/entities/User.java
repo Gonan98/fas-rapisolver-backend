@@ -41,9 +41,6 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> scores;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userReceiver")
-    private List<Score> scoresReceived;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
     private List<UserAttention> userAttentions;
 
