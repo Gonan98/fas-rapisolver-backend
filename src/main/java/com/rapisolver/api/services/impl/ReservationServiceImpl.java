@@ -2,7 +2,6 @@ package com.rapisolver.api.services.impl;
 
 import com.rapisolver.api.dtos.CreateReservationDTO;
 import com.rapisolver.api.dtos.ReservationDTO;
-import com.rapisolver.api.dtos.RoleDTO;
 import com.rapisolver.api.dtos.UpdateReservationDTO;
 import com.rapisolver.api.entities.*;
 import com.rapisolver.api.enums.StatusOrder;
@@ -10,7 +9,6 @@ import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.*;
-import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.ReservationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
