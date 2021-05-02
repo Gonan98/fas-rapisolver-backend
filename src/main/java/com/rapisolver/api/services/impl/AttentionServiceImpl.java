@@ -10,6 +10,7 @@ import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.AttentionRepository;
 import com.rapisolver.api.services.AttentionService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AttentionServiceImpl implements AttentionService {
+    @Autowired
     AttentionRepository attentionRepository;
 
     public static final ModelMapper modelMapper=new ModelMapper();
