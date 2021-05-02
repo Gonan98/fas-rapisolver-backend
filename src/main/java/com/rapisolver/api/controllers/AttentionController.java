@@ -31,7 +31,7 @@ public class AttentionController {
         return new RapisolverResponse<>(200, "OK","Lista de atenciones", attentionList);
     }
 
-    @GetMapping("/attention/{id}")
+    @GetMapping("/attention/{attentionId}")
     private RapisolverResponse<AttentionDTO> getByAttentionId(@PathVariable Long attentionId) {
         AttentionDTO attention;
         try {

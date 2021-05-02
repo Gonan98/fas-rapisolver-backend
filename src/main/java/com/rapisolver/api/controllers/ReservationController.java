@@ -29,7 +29,7 @@ public class ReservationController {
         return new RapisolverResponse<>(200, "OK","Lista de reservas", reservationDTOS);
     }
 
-    @GetMapping("/reservation/{id}")
+    @GetMapping("/reservation/{reservationId}")
     private RapisolverResponse<ReservationDTO> getByReservationId(@PathVariable Long reservationId) {
         ReservationDTO reservationDTO;
         try {
@@ -46,11 +46,11 @@ public class ReservationController {
         return new RapisolverResponse<>(200,String.valueOf(HttpStatus.OK),"OK",reservationService.createReservation(createReservationDTO));
     }
 
-    @PutMapping("/reservation/{id}")
-    private RapisolverResponse<ReservationDTO> updateReservationById(@PathVariable Long id, @RequestBody @Valid UpdateReservationDTO updateReservationDTO) {
+    @PutMapping("/reservation/{reservationId}")
+    private RapisolverResponse<ReservationDTO> updateReservationById(@PathVariable Long reservationId, @RequestBody @Valid UpdateReservationDTO updateReservationDTO) {
         ReservationDTO reservationDTO;
         try {
-            reservationDTO = reservationService.updateReservation(id, updateReservationDTO);
+            reservationDTO = reservationService.updateReservation(reservationId, updateReservationDTO);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }
