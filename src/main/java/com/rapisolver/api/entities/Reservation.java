@@ -14,21 +14,24 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Date datetime;
-
-    @Column(nullable = false)
-    private Integer status;
-
-/*    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_attention_id", nullable = false)
-    private SupplierAttention userAttention;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_customer_id")
-    private User customer;*/
+    @JoinColumn(name = "supplierAttention_id", nullable = false)
+    private SupplierAttentions supplierAttention;
+
+    @Column(nullable = false)
+    private Date dateRequested;
+
+    @Column(length = 100, nullable = false)
+    private String comment;
+
+    @Column
+    private  Integer status;
 }

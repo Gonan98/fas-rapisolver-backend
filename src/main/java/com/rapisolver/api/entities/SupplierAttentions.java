@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "users_attentions")
+@Table(name = "supplier_attentions")
 @Data
 public class SupplierAttentions {
 
@@ -16,6 +16,9 @@ public class SupplierAttentions {
 
     @Column(nullable = false)
     private double price;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplierAttention")
+    private List<Reservation> reservations;
 
 /*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_supplier_id", nullable = false)
