@@ -1,6 +1,8 @@
 package com.rapisolver.api.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,20 +11,24 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 100, nullable = false)
     private String email;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 10, nullable = false)
     private String password;
 
     //TODO Agregar dependcia de rol y los otros atributos faltantes
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Reservation> reservations;
 
     /*@Column(length = 30, nullable = false, unique = true)
     private String email;
