@@ -4,12 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "scores")
-@Data
-public class Score {
 
-    @Id
+public class Recommendation {
+
+    //TODO Arreglar esta clase según la base de datos
+  /*  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,5 +24,5 @@ public class Score {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_receiver_id", nullable = false)
-    private User userReceiver;
+    private User userReceiver;*/
 }
