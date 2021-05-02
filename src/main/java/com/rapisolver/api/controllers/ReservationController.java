@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/rapiSolver/"+"/v1")
@@ -17,6 +18,28 @@ public class ReservationController {
 
     @Autowired
     ReservationService reservationService;
+
+    @GetMapping
+    private RapisolverResponse<List<ReservationDTO>> getAll() {
+        List<ReservationDTO> reservationDTOS;
+        try {
+            reservationDTOS = reservationService.findAll();
+        } catch (RapisolverException e) {
+            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
+        }
+        return new RapisolverResponse<>(200, "OK","Lista de reservas", reservationDTOS);
+    }
+
+    @GetMapping("/{id}")
+    private RapisolverResponse<ReservationDTO> getByReservationId(@PathVariable Long reservationId) {
+        ReservationDTO reservationDTO;
+        try {
+            reservationDTO = reservationService.findById(reservationId);
+        } catch (RapisolverException e) {
+            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
+        }
+        return new RapisolverResponse<>(200, "OK","Reservacion encontrada", reservationDTO);
+    }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/reservation")
