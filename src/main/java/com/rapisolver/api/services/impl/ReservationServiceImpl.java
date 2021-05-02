@@ -2,11 +2,15 @@ package com.rapisolver.api.services.impl;
 
 import com.rapisolver.api.dtos.CreateReservationDTO;
 import com.rapisolver.api.dtos.ReservationDTO;
+import com.rapisolver.api.dtos.RoleDTO;
+import com.rapisolver.api.dtos.UpdateReservationDTO;
 import com.rapisolver.api.entities.*;
+import com.rapisolver.api.enums.StatusOrder;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.*;
+import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.ReservationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +79,7 @@ public class ReservationServiceImpl  implements ReservationService {
             1:Pendiente
             2:Finalizado
              */
-            reservation.setStatus(1);
+            reservation.setStatus(StatusOrder.ORDERED);
             reservation = reservationRepository.save(reservation);
 
             //Mapping
@@ -90,6 +94,34 @@ public class ReservationServiceImpl  implements ReservationService {
             throw new InternalServerErrorException("INTERNAL_SERVER_ERROR");
         }
 
+    }
+
+    @Override
+    public ReservationDTO updateReservation(Long id, UpdateReservationDTO updateReservationDTO) throws RapisolverException {
+        Reservation reservationDB = reservationRepository.findById(id).orElseThrow(() -> new NotFoundException("Reservacion a actualizar no encontrado"));
+
+        Location location = modelMapper.map(updateReservationDTO,Location.class);
+        User usuario = userRepository.findById(updateReservationDTO.getUserId())
+                                        .orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
+        SupplierAttentions supplierAttention = supplierAttentionRepository.findById(updateReservationDTO.getSupplierAttentionId())
+                .orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
+
+        try {
+            location = locationRepository.save(location);
+
+            reservationDB.setComment(updateReservationDTO.getComment());
+            reservationDB.setDateRequested(updateReservationDTO.getDateRequested());
+            reservationDB.setStatus(StatusOrder.ORDERED);
+            reservationDB.setUser(usuario);
+            reservationDB.setLocation(location);
+            reservationDB.setSupplierAttention(supplierAttention);
+
+            reservationDB = reservationRepository.save(reservationDB);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Error de base de datos al actualizar el rol");
+        }
+
+        return modelMapper.map(reservationDB,ReservationDTO.class);
     }
 
 }

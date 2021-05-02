@@ -1,7 +1,6 @@
 package com.rapisolver.api.controllers;
 
-import com.rapisolver.api.dtos.CreateReservationDTO;
-import com.rapisolver.api.dtos.ReservationDTO;
+import com.rapisolver.api.dtos.*;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.ReservationService;
@@ -45,6 +44,18 @@ public class ReservationController {
     @PostMapping("/reservation")
     public RapisolverResponse<ReservationDTO> createReservation(@RequestBody @Valid CreateReservationDTO createReservationDTO) throws RapisolverException{
         return new RapisolverResponse<>(200,String.valueOf(HttpStatus.OK),"OK",reservationService.createReservation(createReservationDTO));
+    }
+
+    @PutMapping("/{id}")
+    private RapisolverResponse<ReservationDTO> updateReservationById(@PathVariable Long id, @RequestBody @Valid UpdateReservationDTO updateReservationDTO) {
+        ReservationDTO reservationDTO;
+        try {
+            reservationDTO = reservationService.updateReservation(id, updateReservationDTO);
+        } catch (RapisolverException e) {
+            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
+        }
+
+        return new RapisolverResponse<>(200, "OK","Reservacion actualizada correctamente", reservationDTO);
     }
 
 }
