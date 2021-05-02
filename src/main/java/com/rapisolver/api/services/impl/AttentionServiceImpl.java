@@ -10,17 +10,19 @@ import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.AttentionRepository;
 import com.rapisolver.api.services.AttentionService;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class AttentionServiceImpl implements AttentionService {
     AttentionRepository attentionRepository;
 
     public static final ModelMapper modelMapper=new ModelMapper();
 
     @Override
-    public List<AttentionDTO> findAll() throws RapisolverException {
+    public List<AttentionDTO> findAttentions() throws RapisolverException {
         List<Attention> attentionList;
         try {
             attentionList = attentionRepository.findAll();
@@ -38,7 +40,17 @@ public class AttentionServiceImpl implements AttentionService {
 
     @Override
     public AttentionDTO createAttention(CreateAttentionDTO createAttentionDTO) throws RapisolverException {
-        return null;
+        Attention attentionEntity;
+        Attention attention = new Attention();
+        attention.setDetail(createAttentionDTO.getDetail());
+        attention.setName(createAttentionDTO.getName());
+        try{
+            attentionEntity = attentionRepository.save(attention);
+        }catch (Exception e){
+            throw new NotFoundException("No se pudo crear la atencion");
+        }
+
+        return modelMapper.map(attentionEntity,AttentionDTO.class);
     }
 
     @Override
