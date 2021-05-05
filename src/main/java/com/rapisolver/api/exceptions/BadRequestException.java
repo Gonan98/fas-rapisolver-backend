@@ -9,5 +9,4 @@ public class BadRequestException extends RapisolverException {
     public BadRequestException(String message) {
         super(400, "BAD_REQUEST", message);
     }
-
 }

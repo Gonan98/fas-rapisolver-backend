@@ -21,19 +21,25 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    private RapisolverResponse<UserDTO> create(@RequestBody @Valid CreateUserDTO createUserDTO) throws RapisolverException {
+    public RapisolverResponse<UserDTO> create(@RequestBody @Valid CreateUserDTO createUserDTO) throws RapisolverException {
         return new RapisolverResponse<>(201, "CREATED","Usuario creado correctamente", userService.create(createUserDTO));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    private RapisolverResponse<List<UserDTO>> getAll() throws RapisolverException {
+    public RapisolverResponse<List<UserDTO>> getAll() throws RapisolverException {
         return new RapisolverResponse<>(200, "OK","Lista de usuarios", userService.findAll());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    private RapisolverResponse<UserDTO> getById(@PathVariable Long id) throws RapisolverException {
+    public RapisolverResponse<UserDTO> getById(@PathVariable Long id) throws RapisolverException {
         return new RapisolverResponse<>(200, "OK","Usuario encontrado", userService.findById(id));
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/{id}/buy-subscription")
+    public RapisolverResponse<String> buySubscription(@PathVariable Long id) throws RapisolverException {
+        return new RapisolverResponse<>(HttpStatus.ACCEPTED.value(), "ACCEPTED", userService.buySubscription(id));
     }
 }

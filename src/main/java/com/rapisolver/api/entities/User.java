@@ -41,9 +41,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> scores;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserAttention> userAttentions;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
 }

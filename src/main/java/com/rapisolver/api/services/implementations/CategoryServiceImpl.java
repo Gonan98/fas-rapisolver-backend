@@ -39,6 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
         return MODEL_MAPPER.map(category, CategoryDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CategoryDTO> findAll() throws RapisolverException {
         try {

@@ -36,6 +36,7 @@ public class ScoreServiceImpl implements ScoreService {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ScoreDTO> findAll() throws RapisolverException {
         return null;

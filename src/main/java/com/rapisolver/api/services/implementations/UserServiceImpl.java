@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO create(CreateUserDTO createUserDTO) throws RapisolverException {
 
-        Role roleDB = roleRepository.findByName("Cliente").orElseThrow(() -> new NotFoundException("No se encontro el rol Cliente"));
+        Role roleDB = roleRepository.findByName("ROLE_CUSTOMER").orElseThrow(() -> new NotFoundException("ROLE_CUSTOMER_NOT_FOUND"));
 
         if(userRepository.findByEmail(createUserDTO.getEmail()).isPresent())
-            throw new BadRequestException("Ya existe un usuario con ese email");
+            throw new BadRequestException("EMAIL_ALREADY_REGISTERED");
 
         User user = new User();
         user.setFirstname(createUserDTO.getFirstname());
@@ -51,26 +51,44 @@ public class UserServiceImpl implements UserService {
         try {
             user = userRepository.save(user);
         } catch (Exception e) {
-            throw new InternalServerErrorException("Error al crear el usuario");
+            throw new InternalServerErrorException("CREATE_USER_ERROR");
         }
 
         return MODEL_MAPPER.map(user, UserDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserDTO> findAll() throws RapisolverException {
         try {
             List<User> users = userRepository.findAll();
             return users.stream().map(u -> MODEL_MAPPER.map(u, UserDTO.class)).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new InternalServerErrorException("Error al obtener todos los usuarios");
+            throw new InternalServerErrorException("FIND_ALL_USERS_ERROR");
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserDTO findById(Long id) throws RapisolverException {
         User userDB = userRepository.findById(id).orElseThrow(() -> new NotFoundException("No se encontro usuario con Id:" + id));
         return MODEL_MAPPER.map(userDB, UserDTO.class);
+    }
+
+    @Transactional
+    @Override
+    public String buySubscription(Long id) throws RapisolverException {
+        User userDB = userRepository.findById(id).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
+
+        if (userDB.getRole().isCanPublish())
+            throw new BadRequestException("USER_ALREADY_HAS_SUBSCRIPTION");
+
+        Role roleDB = roleRepository.findByName("ROLE_SUPPLIER").orElseThrow(() -> new NotFoundException("ROLE_NOT_FOUND"));
+
+        userDB.setRole(roleDB);
+        userRepository.save(userDB);
+
+        return "Ahora puede publicar sus servicios";
     }
 
 }

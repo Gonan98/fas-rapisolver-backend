@@ -20,7 +20,7 @@ public class Location {
     @Column(length = 20, nullable = false)
     private String state;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 30, nullable = false)
     private String city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")

@@ -39,6 +39,7 @@ public class RoleServiceImpl implements RoleService {
         return MODEL_MAPPER.map(role, RoleDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RoleDTO> findAll() throws RapisolverException {
         List<Role> roles;

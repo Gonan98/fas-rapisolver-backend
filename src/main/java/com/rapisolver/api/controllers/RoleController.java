@@ -21,7 +21,7 @@ public class RoleController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    private RapisolverResponse<RoleDTO> create(@RequestBody @Valid CreateRoleDTO createRoleDTO) throws RapisolverException {
+    public RapisolverResponse<RoleDTO> create(@RequestBody @Valid CreateRoleDTO createRoleDTO) throws RapisolverException {
         return new RapisolverResponse<>(201,
                 "CREATED",
                 "Rol creado correctamente",
@@ -30,7 +30,7 @@ public class RoleController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    private RapisolverResponse<List<RoleDTO>> getAll() throws RapisolverException {
+    public RapisolverResponse<List<RoleDTO>> getAll() throws RapisolverException {
         return new RapisolverResponse<>(200,
                 "OK",
                 "Lista de roles",
@@ -39,7 +39,7 @@ public class RoleController {
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    private RapisolverResponse<RoleDTO> updateById(@PathVariable Long id, @RequestBody @Valid CreateRoleDTO createRoleDTO) throws RapisolverException {
+    public RapisolverResponse<RoleDTO> updateById(@PathVariable Long id, @RequestBody @Valid CreateRoleDTO createRoleDTO) throws RapisolverException {
         return new RapisolverResponse<>(200,
                 "OK",
                 "Rol actualizado correctamente",
@@ -48,7 +48,7 @@ public class RoleController {
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    private RapisolverResponse<RoleDTO> deleteById(@PathVariable Long id) throws RapisolverException {
+    public RapisolverResponse<RoleDTO> deleteById(@PathVariable Long id) throws RapisolverException {
         roleService.deleteById(id);
         return new RapisolverResponse<>(200,
                 "OK",
