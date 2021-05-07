@@ -17,6 +17,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserAttentionServiceImpl implements UserAttentionService {
 
@@ -55,6 +58,16 @@ public class UserAttentionServiceImpl implements UserAttentionService {
             return MODEL_MAPPER.map(userAttention, UserAttentionDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("CREATE_USER_ATTENTION_ERROR");
+        }
+    }
+
+    @Override
+    public List<UserAttentionDTO> getByUserId(Long userId) throws RapisolverException {
+        try {
+            List<UserAttention> userAttentions = userAttentionRepository.findByUserId(userId);
+            return userAttentions.stream().map(ua -> MODEL_MAPPER.map(ua, UserAttentionDTO.class)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new InternalServerErrorException("GET_USER_ATTENTION_BY_USERID_ERROR");
         }
     }
 }

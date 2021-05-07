@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users-attentions")
@@ -26,5 +27,11 @@ public class UserAttentionController {
                 "CREATED",
                 "Atencion de proveedor creada correctamente",
                 userAttentionService.create(createUserAttentionDTO));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/user/{userId}")
+    public RapisolverResponse<List<UserAttentionDTO>> getByUserId(@PathVariable Long userId) throws RapisolverException {
+        return new RapisolverResponse<>(200,"OK","Lista de atenciones creadas por el usuario "+userId, userAttentionService.getByUserId(userId));
     }
 }
