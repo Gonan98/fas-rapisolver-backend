@@ -30,10 +30,7 @@ public class User {
     @Column(length = 9, nullable = false)
     private String phone;
 
-    @Column(length = 8, nullable = false, unique = true)
-    private String dni;
-
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date birthdate;
 
@@ -44,12 +41,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> scores;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userReceiver")
-    private List<Score> scoresReceived;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserAttention> userAttentions;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
 }

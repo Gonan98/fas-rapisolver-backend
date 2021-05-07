@@ -13,7 +13,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, unique = true, nullable = false)
     private String name;
 
     @Column(name = "can_publish", nullable = false)

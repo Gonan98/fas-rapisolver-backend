@@ -18,8 +18,8 @@ public class UserAttention {
     private double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_supplier_id", nullable = false)
-    private User supplier;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attention_id", nullable = false)
@@ -27,4 +27,7 @@ public class UserAttention {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
     private List<Reservation> reservations;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
+    private List<Score> scores;
 }

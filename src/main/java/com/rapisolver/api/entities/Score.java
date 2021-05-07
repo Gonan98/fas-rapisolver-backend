@@ -24,6 +24,6 @@ public class Score {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_receiver_id", nullable = false)
-    private User userReceiver;
+    @JoinColumn(name = "user_attention_id", nullable = false)
+    private UserAttention userAttention;
 }

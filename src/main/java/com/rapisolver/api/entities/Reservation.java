@@ -17,6 +17,9 @@ public class Reservation {
     @Column(nullable = false)
     private Date datetime;
 
+    @Column(length = 70, nullable = false)
+    private String address;
+
     @Column(nullable = false)
     private Integer status;
 
@@ -29,6 +32,6 @@ public class Reservation {
     private UserAttention userAttention;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_customer_id")
-    private User customer;
+    @JoinColumn(name = "user_id")
+    private User user;
 }
