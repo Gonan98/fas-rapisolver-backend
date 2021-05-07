@@ -34,6 +34,6 @@ public class ScoreController {
         return new RapisolverResponse<>(200,
                 "OK",
                 "Lista de puntuaciones",
-                scoreService.findAll());
+                scoreService.getAll());
     }
 }

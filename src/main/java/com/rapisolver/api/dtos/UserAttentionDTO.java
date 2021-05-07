@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ScoreDTO {
+public class UserAttentionDTO {
     private Long id;
-    private Integer mark;
-    private String note;
+    private double price;
+    private String detail;
     private UserDTO user;
-    private UserAttentionDTO userAttention;
+    private AttentionDTO attention;
 }
