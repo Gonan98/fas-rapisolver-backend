@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateScoreDTO {
-    private Integer mark;
-    private String note;
+public class CreateUserAttentionDTO {
+    private double price;
+    private String detail;
     private Long userId;
-    private Long userAttentionId;
+    private Long attentionId;
 }

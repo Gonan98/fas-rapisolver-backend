@@ -21,7 +21,7 @@ public class CategoryController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public RapisolverResponse<CategoryDTO> create(@RequestBody @Valid CreateCategoryDTO createCategoryDTO) throws RapisolverException {
+    public RapisolverResponse<CategoryDTO> create(@Valid @RequestBody CreateCategoryDTO createCategoryDTO) throws RapisolverException {
         return new RapisolverResponse<>(201,
                 "CREATED",
                 "Categoria creada correctamente",

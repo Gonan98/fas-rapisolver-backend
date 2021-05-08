@@ -17,6 +17,9 @@ public class UserAttention {
     @Column(nullable = false)
     private double price;
 
+    @Column(length = 100)
+    private String detail;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

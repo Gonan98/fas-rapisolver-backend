@@ -14,11 +14,8 @@ public class Attention {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 20, unique = true, nullable = false)
+    @Column(length = 40, unique = true, nullable = false)
     private String name;
-
-    @Column(length = 50)
-    private String detail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ScoreService {
     ScoreDTO create(CreateScoreDTO createScoreDTO) throws RapisolverException;
-    List<ScoreDTO> findAll() throws RapisolverException;
+    List<ScoreDTO> getAll() throws RapisolverException;
 }
